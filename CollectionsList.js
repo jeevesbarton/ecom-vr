@@ -10,7 +10,7 @@ import {connect, setCollection} from './Store';
 const CollectionList = props => {
 
   return (
-      <View style={styles.collection}>
+      <View style={[styles.collection, {display: props.hide}]}>
           <VrButton onClick={() => setCollection('hats')} style={styles.collectionPanel}>
             <Text>Hats</Text>
           </VrButton>

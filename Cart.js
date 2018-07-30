@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Image, StyleSheet, Text, View, VrButton} from 'react-360';
-import {connect} from './Store';
+import {connect, removeProduct, checkout} from './Store';
 
 class CartItem extends React.Component {
   state = {
@@ -12,18 +12,37 @@ class CartItem extends React.Component {
       <VrButton
         style={styles.productButton}
         onEnter={() => this.setState({hover: true})}
-        onExit={() => this.setState({hover: false})}>
+        onExit={() => this.setState({hover: false})}
+        onClick={() => removeProduct(this.props)}>
         <Image style={styles.productButtonPreview} source={{uri: this.props.preview}} />
         <View style={[styles.productButtonInfo, this.state.hover ? styles.productButtonInfoHover : null]}>
           <View style={styles.productButtonLabel}>
             <Text style={styles.productButtonName}>{this.props.name}</Text>
           </View>
           <View style={styles.productButtonLabel}>
-            <Text style={styles.productButtonPrice}>{this.props.price}</Text>
+            <Text style={styles.productButtonPrice}>${this.props.price}</Text>
           </View>
+          <Text style={styles.productButtonRemove}>Remove</Text>
         </View>
       </VrButton>
     );
+  }
+}
+
+class Total extends React.Component {
+  render() {
+    return (
+      <View>
+        <View style={styles.total}>
+          <Text>Total: ${this.props.total}</Text>
+        </View>
+        <VrButton
+          onClick={() => checkout()}
+        >
+          <Text>Checkout</Text>
+        </VrButton>
+      </View>
+    )
   }
 }
 
@@ -48,6 +67,7 @@ const Cart = props => {
           collection={product.collection}
         />
       ))}
+      <Total total={props.total} />
     </View>
   );
 };
@@ -76,7 +96,12 @@ const styles = StyleSheet.create({
   },
   productButtonPreview: {
     width: '100%',
-    height: 225,
+    height: 112,
+  },
+  productButtonRemove: {
+    backgroundColor: 'red',
+    color: 'white',
+    alignSelf: 'flex-end',
   },
   productButtonInfoHover: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -92,7 +117,10 @@ const styles = StyleSheet.create({
   },
   productButtonPrice: {
     fontSize: 16,
-  }
+  },
+  total: {
+    marginTop: 30,
+  },
 });
 
 const ConnectedCart = connect(Cart);

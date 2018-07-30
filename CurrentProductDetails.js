@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, VrButton} from 'react-360';
 import {connect, addToCart} from './Store';
 
 /**
- * Render a description of the currently-selected model.
+ * Render a description of the currently-selected product.
  * Connected to the global store to receive inputs.
  */
 const CurrentProductDetails = props => {
@@ -21,9 +21,9 @@ const CurrentProductDetails = props => {
   }
   const product = props.products[props.current];
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, {display: props.hide}]}>
       <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.price}>{product.price}</Text>
+      <Text style={styles.price}>${product.price}</Text>
       <Text style={styles.description}>{product.description}</Text>
       <VrButton onClick={() => addToCart(product)} style={styles.addToCart}>
         <Text style={styles.addToCartText}>Add To Cart</Text>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addToCart: {
-    backgroundColor: 'rgba(200, 16, 46, .99)',
+    backgroundColor: 'green',
     marginTop: 50,
     padding: 10,
     width: 150,

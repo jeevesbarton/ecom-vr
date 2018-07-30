@@ -28,7 +28,7 @@ class SelectedProduct extends React.Component {
     const product = this.props.products[this.props.current];
     const source = product.source;
     return (
-      <View>
+      <View style={{display: this.props.hide}}>
         <AmbientLight intensity={1.0} color={'#ffffff'} />
         <PointLight
           intensity={0.4}

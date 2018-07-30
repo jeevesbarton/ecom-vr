@@ -18,6 +18,9 @@ function init(bundle, parent, options = {}) {
   const cartPanel = new Surface(300, 600, Surface.SurfaceShape.Flat);
   cartPanel.setAngle(1.04, 0);
 
+  const checkoutPanel = new Surface(300, 600, Surface.SurfaceShape.Flat);
+  checkoutPanel.setAngle(0, 0);
+
   r360.renderToSurface(
     r360.createRoot('Products'),
     leftPanel,
@@ -33,6 +36,10 @@ function init(bundle, parent, options = {}) {
   r360.renderToSurface(
     r360.createRoot('Cart'),
     cartPanel,
+  );
+  r360.renderToSurface(
+    r360.createRoot('Checkout'),
+    checkoutPanel,
   );
   r360.renderToLocation(
     r360.createRoot('SelectedProduct'),

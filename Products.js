@@ -20,7 +20,7 @@ class ProductButton extends React.Component {
             <Text style={styles.productButtonName}>{this.props.name}</Text>
           </View>
           <View style={styles.productButtonLabel}>
-            <Text style={styles.productButtonPrice}>{this.props.price}</Text>
+            <Text style={styles.productButtonPrice}>${this.props.price}</Text>
           </View>
         </View>
       </VrButton>
@@ -39,7 +39,7 @@ const Products = props => {
   }
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, {display: props.hide}]}>
       {props.products.map((product, i) => (
         product.collection === props.collection ?
         <ProductButton
